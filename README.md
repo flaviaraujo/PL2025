@@ -3,7 +3,7 @@
 ### Autor:
 Flávia Alexandra Silva Araújo (a96587)
 
-![Autora](../Images/pfp.png)
+![Autora](Images/pfp.png)
 
 Este repositório contém os trabalhos de casa semanais da Unidade Curricular de Processamento de Linguagens, em Engenharia Informática, no ano letivo 2024/2025.
 
