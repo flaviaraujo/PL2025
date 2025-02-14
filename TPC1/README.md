@@ -24,5 +24,6 @@ Output: 20
 - Flávia Alexandra Silva Araújo, A96587
 
 
-![Autora](https://avatars.githubusercontent.com/u/73347444?v=4)
+<img src="https://avatars.githubusercontent.com/u/73347444?v=4" alt="Autora" width="10%">
+
 
