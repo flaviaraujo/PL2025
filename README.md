@@ -6,7 +6,7 @@ Este repositório contém os trabalhos de casa semanais da Unidade Curricular de
 ### Autor:
 Flávia Alexandra Silva Araújo (a96587)
 
-![Autora](Images/pfp.png)
+![Autora](https://avatars.githubusercontent.com/u/73347444?v=4)
 
 ### Ficheiros:
 [TPC1](https://github.com/flaviaraujo/PL2025/tree/main/TPC1)
