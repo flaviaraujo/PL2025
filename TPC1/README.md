@@ -1,4 +1,4 @@
-# Trabalho 1
+# Trabalho 1 - Somador On/Off
 
 ## Descrição
 Este programa interpreta uma linha de entrada contendo palavras, números e caracteres especiais,
@@ -44,7 +44,7 @@ Cada trabalho destes vale 0.25 valores da nota final!
 ```
 
 ## Autor
-- Flávia Alexandra Silva Araújo, A96587
+- Flávia Alexandra Silva Araújo, A96587 (14/02/2025)
 
 
 <img src="https://avatars.githubusercontent.com/u/73347444?v=4" alt="Autora" width="10%">
