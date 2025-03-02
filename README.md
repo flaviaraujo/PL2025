@@ -11,3 +11,4 @@ Flávia Alexandra Silva Araújo (a96587)
 ### Ficheiros:
 - [TPC1](https://github.com/flaviaraujo/PL2025/tree/main/TPC1)
 - [TPC2](https://github.com/flaviaraujo/PL2025/tree/main/TPC2)
+- [TPC3](https://github.com/flaviaraujo/PL2025/tree/main/TPC3)
