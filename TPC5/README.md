@@ -65,7 +65,7 @@ maq: Até à próxima
 ## Dependências
 
 - *Python* 3
-- `tabulate` (instalar com `pip install tabulate`)
+- `tabulate` (instalar com `pip install tabulate`, usada para gerar a tabela de produtos)
 
 ## Autor
 
