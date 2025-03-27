@@ -1,57 +1,52 @@
-# Trabalho 6 - Parser LL(1) Recursivo Descendente
+# Trabalho 6 - Analisador Léxico e Parser LL(1)
 
 ## Descrição
 
-Este programa implementa um ***parser* LL(1) recursivo descendente** que reconhece e avalia expressões aritméticas.
-O analisador léxico converte a expressão em *tokens*, e o analisador sintático verifica a estrutura da expressão
-seguindo uma gramática LL(1). Durante a análise, o valor da expressão é calculado recursivamente.
+Este programa implementa um analisador léxico e um *parser* LL(1) para expressões matemáticas simples. O analisador léxico usa a biblioteca `ply.lex` para tokenizar a entrada, enquanto o *parser* LL(1) avalia a expressão utilizando uma abordagem recursiva descendente.
 
-O *parser* suporta as seguintes operações:
+O analisador suporta os seguintes *tokens*:
 
-- **Adição (`+`)** e **Subtração (`-`)**;
-- **Multiplicação (`*`)** e **Divisão (`/`)** (com divisão inteira);
-- **Uso de parênteses** para agrupar subexpressões.
+- **Operadores matemáticos:** `+`, `-`, `*`, `/`;
+- **Parênteses:** `(`, `)`;
+- **Números inteiros**.
+
 
 ## Execução
 
-Para executar o programa, utiliza-se o seguinte comando:
+Para executar o analisador, utiliza-se o seguinte comando:
 
 ```bash
 python3 tpc6.py
 ```
 
-O programa solicita ao utilizador que introduza uma expressão aritmética válida e retorna o resultado da avaliação,
-bem como a lista de *tokens* gerada durante a análise léxica. Caso a expressão seja inválida, o programa exibe uma
-mensagem de erro.
+Seguidamente, introduz-se uma expressão matemática para ser analisada e calculada.
 
-## Exemplo de Utilização
+## Exemplo
 
 ### Entrada:
 ```
 2+3
-(9-2)*(13-4)
 67-(2+3*4)
+(9-2)*(13-4)
 ```
 
 ### Saída:
 ```
-Digite uma expressão: 2+3
-Tokens: ['2', '+', '3', '$']
+Tokens: [LexToken(NUMERO, 2, 1, 0), LexToken(MAIS, '+', 1, 1), LexToken(NUMERO, 3, 1, 2)]
 Resultado: 5
 
-Digite uma expressão: (9-2)*(13-4)
-Tokens: ['(', '9', '-', '2', ')', '*', '(', '13', '-', '4', ')', '$']
-Resultado: 63
-
-Digite uma expressão: 67-(2+3*4)
-Tokens: ['67', '-', '(', '2', '+', '3', '*', '4', ')', '$']
+Tokens: [LexToken(NUMERO, 67, 1, 0), LexToken(MENOS, '-', 1, 2), LexToken(LPAREN, '(', 1, 3), LexToken(NUMERO, 2, 1, 4), LexToken(MAIS, '+', 1, 5), LexToken(NUMERO, 3, 1, 6), LexToken(MULT, '*', 1, 7), LexToken(NUMERO, 4, 1, 8), LexToken(RPAREN, ')', 1, 9)]
 Resultado: 53
+
+Tokens: [LexToken(LPAREN, '(', 1, 0), LexToken(NUMERO, 9, 1, 1), LexToken(MENOS, '-', 1, 2), LexToken(NUMERO, 2, 1, 3), LexToken(RPAREN, ')', 1, 4), LexToken(MULT, '*', 1, 5), LexToken(LPAREN, '(', 1, 6), LexToken(NUMERO, 13, 1, 7), LexToken(MENOS, '-', 1, 8), LexToken(NUMERO, 4, 1, 9), LexToken(RPAREN, ')', 1, 10)]
+Resultado: 63
 ```
 
 ## Dependências
 
-- *Python* 3
-- Biblioteca `re` (incluída por padrão no Python)
+- Python 3
+- `ply` (instalar com `pip install ply`)
+
 
 ## Autor
 

@@ -1,79 +1,81 @@
-import re
+import ply.lex as lex
 
-def tokenize(expression):
-    expression = expression.replace(" ", "")
-    tokens = re.findall(r'\d+|[()+\-*/]', expression)
-    return tokens + ['$']
+# Definição dos tokens
+tokens = (
+    'NUMERO', 'MAIS', 'MENOS', 'MULT', 'DIV', 'LPAREN', 'RPAREN', 'EOF'
+)
 
-class Parser:
+t_MAIS = r'\+'
+t_MENOS = r'-'
+t_MULT = r'\*'
+t_DIV = r'/'
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+
+def t_NUMERO(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
+
+t_ignore = ' \t'
+
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+def t_error(t):
+    print(f"Caractere ilegal: {t.value[0]}")
+    t.lexer.skip(1)
+
+lexer = lex.lex()
+
+class LL1Parser:
     def __init__(self, tokens):
         self.tokens = tokens
         self.pos = 0
 
-    def lookahead(self):
-        return self.tokens[self.pos]
-    
-    def match(self, expected):
-        if self.lookahead() == expected:
+    def eat(self, token_type):
+        if self.pos < len(self.tokens) and self.tokens[self.pos].type == token_type:
             self.pos += 1
         else:
-            raise SyntaxError(f"Erro de sintaxe: esperado '{expected}', mas encontrado '{self.lookahead()}' na posição {self.pos}")
-
-    def expr(self):
-        """ expr -> term expr_cont """
-        value = self.term()
-        return self.expr_cont(value)
-    
-    def expr_cont(self, inherited_value):
-        """ expr_cont -> ('+' | '-') term expr_cont | vazio """
-        if self.lookahead() in ('+', '-'):
-            op = self.lookahead()
-            self.match(op)
-            value = self.term()
-            if op == '+':
-                inherited_value += value
-            else:
-                inherited_value -= value
-            return self.expr_cont(inherited_value)
-        return inherited_value
-    
-    def term(self):
-        """ term -> factor term_cont """
-        value = self.factor()
-        return self.term_cont(value)
-    
-    def term_cont(self, inherited_value):
-        """ term_cont -> ('*' | '/') factor term_cont | vazio """
-        if self.lookahead() in ('*', '/'):
-            op = self.lookahead()
-            self.match(op)
-            value = self.factor()
-            if op == '*':
-                inherited_value *= value
-            else:
-                inherited_value //= value 
-            return self.term_cont(inherited_value)
-        return inherited_value
-    
-    def factor(self):
-        """ factor -> NUM | '(' expr ')' """
-        if self.lookahead().isdigit():
-            value = int(self.lookahead())
-            self.match(self.lookahead())
-            return value
-        elif self.lookahead() == '(':
-            self.match('(')
-            value = self.expr()
-            self.match(')')
-            return value
-        else:
-            raise SyntaxError(f"Token inesperado: {self.lookahead()}")
+            raise SyntaxError(f"Esperado {token_type}, encontrado {self.tokens[self.pos].type if self.pos < len(self.tokens) else 'EOF'}")
 
     def parse(self):
         result = self.expr()
-        if self.lookahead() != '$':
-            raise SyntaxError("Entrada inválida. Tokens restantes após análise.")
+        if self.pos < len(self.tokens):
+            raise SyntaxError("Tokens extras na entrada.")
         return result
+
+    def expr(self):
+        result = self.term()
+        while self.pos < len(self.tokens) and self.tokens[self.pos].type in ('MAIS', 'MENOS'):
+            op = self.tokens[self.pos].type
+            self.eat(op)
+            right = self.term()
+            result = result + right if op == 'MAIS' else result - right
+        return result
+
+    def term(self):
+        result = self.factor()
+        while self.pos < len(self.tokens) and self.tokens[self.pos].type in ('MULT', 'DIV'):
+            op = self.tokens[self.pos].type
+            self.eat(op)
+            right = self.factor()
+            result = result * right if op == 'MULT' else result // right
+        return result
+
+    def factor(self):
+        if self.tokens[self.pos].type == 'NUMERO':
+            value = self.tokens[self.pos].value
+            self.eat('NUMERO')
+            return value
+        elif self.tokens[self.pos].type == 'LPAREN':
+            self.eat('LPAREN')
+            value = self.expr()
+            self.eat('RPAREN')
+            return value
+        else:
+            raise SyntaxError(f"Token inesperado: {self.tokens[self.pos].type}")
 
 if __name__ == "__main__":
     while True:
@@ -81,10 +83,10 @@ if __name__ == "__main__":
             expr = input("Digite uma expressão: ").strip()
             if not expr:
                 break
-            tokens = tokenize(expr)
+            lexer.input(expr)
+            tokens = list(lexer)
             print("Tokens:", tokens)
-            parser = Parser(tokens)
-            result = parser.parse()
-            print("Resultado:", result)
+            parser = LL1Parser(tokens)
+            print("Resultado:", parser.parse())
         except Exception as e:
             print("Erro:", e)
