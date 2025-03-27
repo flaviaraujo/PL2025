@@ -30,7 +30,7 @@ python3 tpc5.py
 - `MOEDA <valores>` → Insere moedas na máquina (exemplo: `MOEDA 1e, 50c`);
 - `SELECIONAR <código>` → Tenta comprar um produto pelo código;
 - `SAIR` → Finaliza a operação e retorna o troco;
-- `ADICIONAR <código> <nome> <quantidade> <preço>` → Adiciona produtos ao stock.
+- `ADICIONAR <código> <nome> <quantidade> <preço>` → Adiciona produtos ao *stock*.
 
 ## Exemplo de Utilização
 
