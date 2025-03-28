@@ -12,25 +12,23 @@ A máquina suporta as seguintes funcionalidades:
 - **Listar produtos disponíveis** com códigos, nomes, quantidades e preços;
 - **Inserir moedas** de diferentes valores;
 - **Selecionar produtos** para compra, verificando o saldo e a disponibilidade;
-- **Retornar troco** ao encerrar a sessão;
-- **Adicionar produtos ao *stock*** (somente para manutenção).
+- **Retornar troco** ao encerrar a sessão.
 
 ## Execução
 
 Para executar a máquina de vendas, utiliza-se o seguinte comando:
 
 ```bash
-python3 tpc5.py
+python3 tpc5.py stock.json
 ```
 
 ## Comandos Disponíveis
 
-- `LISTAR` → Exibe os produtos disponíveis na máquina;
-- `SALDO` → Mostra o saldo atual inserido;
-- `MOEDA <valores>` → Insere moedas na máquina (exemplo: `MOEDA 1e, 50c`);
-- `SELECIONAR <código>` → Tenta comprar um produto pelo código;
-- `SAIR` → Finaliza a operação e retorna o troco;
-- `ADICIONAR <código> <nome> <quantidade> <preço>` → Adiciona produtos ao *stock*.
+- `AJUDA` - Mostra esta ajuda
+- `LISTAR` - Lista os produtos disponíveis
+- `MOEDA <lista de moedas>` . - Adiciona moedas (ex: `MOEDA 1e, 50c, 20c .`)
+- `SELECIONAR <código>` - Seleciona um produto (ex: `SELECIONAR A23`)
+- `SAIR` - Termina a sessão e devolve o troco
 
 ## Exemplo de Utilização
 
@@ -61,11 +59,24 @@ maq: Pode retirar o produto dispensado "água 0.5L"
 maq: Pode retirar o troco: 5x 10c.
 maq: Até à próxima
 ```
+## Formato do *Stock*
+```json
+[
+  {
+    "cod": "A23",
+    "nome": "água 0.5L",
+    "quant": 6,
+    "preco": 0.7
+  }
+]
+```
 
 ## Dependências
 
 - *Python* 3
 - `tabulate` (instalar com `pip install tabulate`, usada para gerar a tabela de produtos)
+- `json` (biblioteca padrão do Python, usada para carregar o *stock* de produtos)
+- `ply` (instalar com `pip install ply`, usada para gerar o *parser* de comandos)
 
 ## Autor
 

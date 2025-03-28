@@ -1,0 +1,194 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> comando
+Rule 1     comando -> ajuda
+Rule 2     comando -> listar
+Rule 3     comando -> moeda
+Rule 4     comando -> selecionar
+Rule 5     comando -> sair
+Rule 6     ajuda -> AJUDA
+Rule 7     listar -> LISTAR
+Rule 8     moeda -> MOEDA lista_moedas .
+Rule 9     lista_moedas -> VALOR_MOEDA
+Rule 10    lista_moedas -> lista_moedas , VALOR_MOEDA
+Rule 11    selecionar -> SELECIONAR CODIGO
+Rule 12    sair -> SAIR
+
+Terminals, with rules where they appear
+
+,                    : 10
+.                    : 8
+AJUDA                : 6
+CODIGO               : 11
+LISTAR               : 7
+MOEDA                : 8
+SAIR                 : 12
+SELECIONAR           : 11
+VALOR_MOEDA          : 9 10
+error                : 
+
+Nonterminals, with rules where they appear
+
+ajuda                : 1
+comando              : 0
+lista_moedas         : 8 10
+listar               : 2
+moeda                : 3
+sair                 : 5
+selecionar           : 4
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . comando
+    (1) comando -> . ajuda
+    (2) comando -> . listar
+    (3) comando -> . moeda
+    (4) comando -> . selecionar
+    (5) comando -> . sair
+    (6) ajuda -> . AJUDA
+    (7) listar -> . LISTAR
+    (8) moeda -> . MOEDA lista_moedas .
+    (11) selecionar -> . SELECIONAR CODIGO
+    (12) sair -> . SAIR
+
+    AJUDA           shift and go to state 7
+    LISTAR          shift and go to state 8
+    MOEDA           shift and go to state 9
+    SELECIONAR      shift and go to state 10
+    SAIR            shift and go to state 11
+
+    comando                        shift and go to state 1
+    ajuda                          shift and go to state 2
+    listar                         shift and go to state 3
+    moeda                          shift and go to state 4
+    selecionar                     shift and go to state 5
+    sair                           shift and go to state 6
+
+state 1
+
+    (0) S' -> comando .
+
+
+
+state 2
+
+    (1) comando -> ajuda .
+
+    $end            reduce using rule 1 (comando -> ajuda .)
+
+
+state 3
+
+    (2) comando -> listar .
+
+    $end            reduce using rule 2 (comando -> listar .)
+
+
+state 4
+
+    (3) comando -> moeda .
+
+    $end            reduce using rule 3 (comando -> moeda .)
+
+
+state 5
+
+    (4) comando -> selecionar .
+
+    $end            reduce using rule 4 (comando -> selecionar .)
+
+
+state 6
+
+    (5) comando -> sair .
+
+    $end            reduce using rule 5 (comando -> sair .)
+
+
+state 7
+
+    (6) ajuda -> AJUDA .
+
+    $end            reduce using rule 6 (ajuda -> AJUDA .)
+
+
+state 8
+
+    (7) listar -> LISTAR .
+
+    $end            reduce using rule 7 (listar -> LISTAR .)
+
+
+state 9
+
+    (8) moeda -> MOEDA . lista_moedas .
+    (9) lista_moedas -> . VALOR_MOEDA
+    (10) lista_moedas -> . lista_moedas , VALOR_MOEDA
+
+    VALOR_MOEDA     shift and go to state 13
+
+    lista_moedas                   shift and go to state 12
+
+state 10
+
+    (11) selecionar -> SELECIONAR . CODIGO
+
+    CODIGO          shift and go to state 14
+
+
+state 11
+
+    (12) sair -> SAIR .
+
+    $end            reduce using rule 12 (sair -> SAIR .)
+
+
+state 12
+
+    (8) moeda -> MOEDA lista_moedas . .
+    (10) lista_moedas -> lista_moedas . , VALOR_MOEDA
+
+    .               shift and go to state 15
+    ,               shift and go to state 16
+
+
+state 13
+
+    (9) lista_moedas -> VALOR_MOEDA .
+
+    .               reduce using rule 9 (lista_moedas -> VALOR_MOEDA .)
+    ,               reduce using rule 9 (lista_moedas -> VALOR_MOEDA .)
+
+
+state 14
+
+    (11) selecionar -> SELECIONAR CODIGO .
+
+    $end            reduce using rule 11 (selecionar -> SELECIONAR CODIGO .)
+
+
+state 15
+
+    (8) moeda -> MOEDA lista_moedas . .
+
+    $end            reduce using rule 8 (moeda -> MOEDA lista_moedas . .)
+
+
+state 16
+
+    (10) lista_moedas -> lista_moedas , . VALOR_MOEDA
+
+    VALOR_MOEDA     shift and go to state 17
+
+
+state 17
+
+    (10) lista_moedas -> lista_moedas , VALOR_MOEDA .
+
+    .               reduce using rule 10 (lista_moedas -> lista_moedas , VALOR_MOEDA .)
+    ,               reduce using rule 10 (lista_moedas -> lista_moedas , VALOR_MOEDA .)
+
